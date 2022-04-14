@@ -27,7 +27,7 @@ public class Payment {
     void check_credit_card_should_return_true_if_expiration_date_is_valid() {
         CreditCard creditCard = paymentRepository.getCreditCard();
         // Check if credit card is valid
-        assertThat(paymentRepository.validCreditCard(creditCard)).isTrue();
+        assertThat(creditCard.validCreditCard()).isTrue();
     }
 
     @Test
