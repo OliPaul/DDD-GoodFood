@@ -1,17 +1,13 @@
 package com.groupe5.goodfood.model;
 
+import java.util.List;
+
 public class Order {
 
     private String id;
-    private Dish dish;
+    private List<Dish> dishes;
     private double price;
 
-
-    public Order(String id, Dish dish, double price) {
-        this.id = id;
-        this.dish = dish;
-        this.price = price;
-    }
 
     public Order() {
 
@@ -26,12 +22,12 @@ public class Order {
         this.price = price;
     }
 
-    public Dish getDish() {
-        return dish;
+    public List<Dish> getDishes() {
+        return this.dishes;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDishes(List<Dish> dish) {
+        this.dishes = dishes;
     }
 
     public String getId() {
