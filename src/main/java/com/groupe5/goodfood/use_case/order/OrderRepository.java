@@ -1,7 +1,7 @@
 package com.groupe5.goodfood.use_case.order;
 
-import com.groupe5.goodfood.model.Dish;
+import com.groupe5.goodfood.model.Order;
 
 public interface OrderRepository {
-    Dish findById();
+    Order findById(String orderId);
 }
