@@ -42,9 +42,16 @@ public class MakeOrderTest {
        dishToOrder.add(dish1);
        dishToOrder.add(dish2);
        dishToOrder.add(dish3);
-       for(Dish dish: dishToOrder) {
-           assertEquals(dish1, dishes.findById("1"));
-       }
+       Dish expectedDish1 = dishes.findById("1");
+       assertEquals(expectedDish1.getId(), dish1.getId());
+
+       Dish expectedDish2 = dishes.findById("2");
+       assertEquals(expectedDish2.getId(), dish2.getId());
+
+       Dish expectedDish3 = dishes.findById("3");
+       assertEquals(expectedDish3.getId(), dish3.getId());
+
+
 
    }
 
