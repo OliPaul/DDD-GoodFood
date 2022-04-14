@@ -33,17 +33,6 @@ public class FakeCreditCard implements PaymentRepository {
     }
 
     @Override
-    public boolean validCreditCard(CreditCard creditCard) {
-        LocalDate now = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/yyyy")), new DateTimeFormatterBuilder()
-                .appendPattern("MM/yyyy")
-                .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
-                .toFormatter());
-        System.out.println(now);
-        System.out.println(creditCard.getExpirationDate());
-        return !creditCard.getExpirationDate().isBefore(now);
-    }
-
-    @Override
     public boolean validatePayment(Order order, CreditCard creditCard) {
         return creditCard.getBalance() > order.getPrice();
     }
