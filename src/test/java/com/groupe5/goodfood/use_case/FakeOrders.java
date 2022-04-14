@@ -26,7 +26,7 @@ public class FakeOrders implements OrderRepository {
         order1.setDishes(dishes_1);
         order1.setPrice(17.0);
 
-        orders.put("order1", order1);
+        orders.put("1", order1);
 
         Order order2 = new Order();
         List<Dish> dishes_2  = new ArrayList<>();
@@ -35,7 +35,7 @@ public class FakeOrders implements OrderRepository {
         dishes_2.add(gratinDauphinois);
         order2.setDishes(dishes_2);
         order2.setPrice(11.50);
-        orders.put("order2", order2);
+        orders.put("2", order2);
 
 
         Order order3 = new Order();
@@ -46,7 +46,7 @@ public class FakeOrders implements OrderRepository {
         order1.setDishes(dishes_3);
         order1.setPrice(10.50);
 
-        orders.put("order3", order3);
+        orders.put("3", order3);
 
         Order order4 = new Order();
         List<Dish> dishes_4  = new ArrayList<>();
@@ -56,7 +56,7 @@ public class FakeOrders implements OrderRepository {
         order1.setDishes(dishes_4);
         order1.setPrice(17.0);
 
-        orders.put("order4", order4);
+        orders.put("4", order4);
 
 
     }
