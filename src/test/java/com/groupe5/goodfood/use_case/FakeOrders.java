@@ -63,7 +63,7 @@ public class FakeOrders implements OrderRepository {
 
     @Override
     public Order findById(String orderId) {
-        return null;
+        return orders.get(orderId);
     }
 
     @Override
