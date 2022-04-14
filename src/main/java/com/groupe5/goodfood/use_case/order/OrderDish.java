@@ -16,9 +16,6 @@ public class OrderDish {
     private final PaymentRepository payments;
 
 
-
-
-
     public OrderDish(OrderRepository orders, DishRepository dishes, PaymentRepository payments){
 
         this.orders = orders;
@@ -46,12 +43,12 @@ public class OrderDish {
             throw new InsufficientFundsException("Card balance insufficient");
         }
 
+
         Order order = getOrder(orderId, sum, toBeOrderedDishes);
         orders.save(order);
         return order;
 
     }
-
 
     public Order getOrder(String orderId, double sum, List<Dish> dishesToOrder){
         Order order = new Order();
