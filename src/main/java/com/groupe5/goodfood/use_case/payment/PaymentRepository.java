@@ -5,5 +5,4 @@ import com.groupe5.goodfood.model.Order;
 
 public interface PaymentRepository {
     CreditCard getCreditCard();
-    boolean validatePayment(Order order, CreditCard creditCard);
 }

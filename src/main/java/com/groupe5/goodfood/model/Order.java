@@ -5,7 +5,7 @@ import java.util.List;
 public class Order {
 
     private String id;
-    private List<Dish> dishes;
+    private List<OrderedDish> dishes;
     private double price;
 
 
@@ -22,7 +22,7 @@ public class Order {
         this.price = price;
     }
 
-    public List<Dish> getDishes() {
+    public List<OrderedDish> getDishes() {
         return this.dishes;
     }
 
@@ -36,5 +36,19 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public void appendDishToOrder(OrderedDish orderedDish) {
+        dishes.add(orderedDish);
+    }
+
+    public void calculateTotalPrice() {
+        double totalAmount = 0;
+        for (OrderedDish orderedDish : dishes) {
+            totalAmount +=  orderedDish.getPrice() * orderedDish.getOrderedQuantity();
+        }
+
+        price = totalAmount;
     }
 }

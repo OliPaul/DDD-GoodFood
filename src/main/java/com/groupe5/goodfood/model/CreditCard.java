@@ -29,4 +29,9 @@ public class CreditCard {
     public void updateBalance(double orderAmount) {
         balance -= orderAmount;
     }
+
+
+    public boolean validatePayment(Order order) {
+        return balance - order.getPrice() >= 0;
+    }
 }

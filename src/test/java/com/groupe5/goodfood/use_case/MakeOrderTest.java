@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +29,8 @@ public class MakeOrderTest {
 
     @Test
     void find_dish_by_id_should_return_a_dish_if_exist() {
-        Dish dish = dishes.findById("1");
-        assertThat(dish).isInstanceOf(Dish.class);
+        Optional<Dish> dish = dishes.findById("1");
+        assertThat(dish.get()).isInstanceOf(Dish.class);
 
     }
 
@@ -40,15 +41,14 @@ public class MakeOrderTest {
        dishToOrder.add("1");
        dishToOrder.add("2");
        dishToOrder.add("3");
-       Dish expectedDish1 = dishes.findById(dishToOrder.get(0));
-       assertThat(expectedDish1).isInstanceOf(Dish.class);
+       Optional<Dish> expectedDish1 = dishes.findById(dishToOrder.get(0));
+       assertThat(expectedDish1.get()).isInstanceOf(Dish.class);
 
-       Dish expectedDish2 = dishes.findById(dishToOrder.get(1));
-       assertThat(expectedDish2).isInstanceOf(Dish.class);
+       Optional<Dish> expectedDish2 = dishes.findById(dishToOrder.get(1));
+       assertThat(expectedDish2.get()).isInstanceOf(Dish.class);
 
-       Dish expectedDish3 = dishes.findById(dishToOrder.get(2));
-       assertThat(expectedDish3).isInstanceOf(Dish.class);
-
+       Optional<Dish> expectedDish3 = dishes.findById(dishToOrder.get(2));
+       assertThat(expectedDish3.get()).isInstanceOf(Dish.class);
 
 
    }
