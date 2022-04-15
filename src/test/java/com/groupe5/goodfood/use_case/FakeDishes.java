@@ -4,10 +4,7 @@ import com.groupe5.goodfood.model.Dish;
 import com.groupe5.goodfood.use_case.order.DishRepository;
 import com.groupe5.goodfood.use_case.order.OrderRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FakeDishes implements DishRepository {
     Map<String, Dish> dishes;
@@ -28,8 +25,8 @@ public class FakeDishes implements DishRepository {
 
     }
         @Override
-        public Dish findById(String dishId){
-            return dishes.get(dishId);
+        public Optional<Dish> findById(String dishId){
+            return Optional.ofNullable(dishes.get(dishId));
         }
 
 }

@@ -11,6 +11,7 @@ public class Dish {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
     }
 
 
@@ -28,5 +29,10 @@ public class Dish {
 
     public int getQuantity() {
         return quantity;
+    }
+
+
+    public void updateStock(OrderedDish orderedDish){
+        quantity -= orderedDish.getOrderedQuantity();
     }
 }

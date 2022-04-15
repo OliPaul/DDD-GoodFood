@@ -3,13 +3,11 @@ package com.groupe5.goodfood.use_case.order;
 import com.groupe5.goodfood.model.CreditCard;
 import com.groupe5.goodfood.model.Dish;
 import com.groupe5.goodfood.model.Order;
+import com.groupe5.goodfood.model.OrderedDish;
 import com.groupe5.goodfood.use_case.payment.PaymentRepository;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderDish {
 
@@ -18,7 +16,7 @@ public class OrderDish {
     private final PaymentRepository payments;
 
 
-    public OrderDish(OrderRepository orders, DishRepository dishes, PaymentRepository payments){
+    public OrderDish(OrderRepository orders, DishRepository dishes, PaymentRepository payments) {
 
         this.orders = orders;
         this.dishes = dishes;
@@ -26,47 +24,54 @@ public class OrderDish {
     }
 
     public Order orderDish(HashMap<String, Integer> selectedDishes) throws InvalidCreditCardException, InsufficientFundsException {
+        Order order = new Order();
+        double totalAmount = 0;
+        List<Dish> dishList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : selectedDishes.entrySet()) {
+            //Récuperer le plat par son id
+            Optional<Dish> optionalDish = dishes.findById(entry.getKey());
+            //si le plat n'existe pas on notifie l'utilisateur
+            if (optionalDish.isEmpty()) {
+                // notify user
+                break;
+            }
+            Dish dish = optionalDish.get();
+            dishList.add(dish);
+            //Vérification de stock
+            if (dish.getQuantity() < entry.getValue()) {
+                // notify user stock pas dispo
+                break;
+            }
+            //ajouter les plat à la commande
 
-
-
-
-        double sum = 0;
-        for(Map.Entry<String, String> entry: selectedDishes.entrySet()){
-
-            Dish dish = dishes.findById()
-
-
+            OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());
+            order.appendDishToOrder(orderDish);
         }
-
-        for (Dish dish : toBeOrderedDishes){
-            sum += dish.getPrice();
-        }
-        Order order = getOrder(orderId, sum, toBeOrderedDishes);
+        // calculer le total de la commande
+        order.calculateTotalPrice();
         CreditCard card = payments.getCreditCard();
-        if(!card.validCreditCard()){
-            throw  new InvalidCreditCardException("Invalid Credit card ");
+        // Vérifier la validité de la carte de crédit
+        if (!card.validCreditCard()) {
+            throw new InvalidCreditCardException("Invalid Credit card ");
         }
-        if(card.validatePayment()){
+        // Valider le paiement
+        if (card.validatePayment(order)) {
             throw new InsufficientFundsException("Card balance insufficient");
         }
-        card.updateBalance(sum);
-
-
+        // Enregistrer la commande
         orders.save(order);
+        // mise à jour du stock
+
+        for (int i = 0; i < dishList.size(); i++) {
+            Dish dish = dishList.get(i);
+
+            dish.updateStock(order.getDishes().get(i));
+        }
+        //mise à jour de la balance
+        card.updateBalance(totalAmount);
         return order;
 
     }
-
-    public Order getOrder(String orderId, double sum, List<Dish> dishesToOrder){
-        Order order = new Order();
-
-        order.setId(orderId);
-        order.setPrice(sum);
-        order.setDishes(dishesToOrder);
-
-        return order;
-    }
-
 
 
 }
