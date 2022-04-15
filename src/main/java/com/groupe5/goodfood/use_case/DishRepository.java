@@ -1,4 +1,4 @@
-package com.groupe5.goodfood.use_case.order;
+package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.Dish;
 

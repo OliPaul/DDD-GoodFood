@@ -1,10 +1,9 @@
-package com.groupe5.goodfood.use_case.order;
+package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.CreditCard;
 import com.groupe5.goodfood.model.Dish;
 import com.groupe5.goodfood.model.Order;
 import com.groupe5.goodfood.model.OrderedDish;
-import com.groupe5.goodfood.use_case.payment.PaymentRepository;
 
 
 import java.util.*;

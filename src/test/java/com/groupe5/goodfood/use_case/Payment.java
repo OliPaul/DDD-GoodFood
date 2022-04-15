@@ -2,8 +2,6 @@ package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.CreditCard;
 import com.groupe5.goodfood.model.Order;
-import com.groupe5.goodfood.use_case.order.OrderRepository;
-import com.groupe5.goodfood.use_case.payment.PaymentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

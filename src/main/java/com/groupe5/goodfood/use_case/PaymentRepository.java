@@ -1,4 +1,4 @@
-package com.groupe5.goodfood.use_case.payment;
+package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.CreditCard;
 import com.groupe5.goodfood.model.Order;

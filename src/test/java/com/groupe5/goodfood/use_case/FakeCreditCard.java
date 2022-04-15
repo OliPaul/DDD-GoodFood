@@ -1,11 +1,8 @@
 package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.CreditCard;
-import com.groupe5.goodfood.model.Order;
-import com.groupe5.goodfood.use_case.payment.PaymentRepository;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 

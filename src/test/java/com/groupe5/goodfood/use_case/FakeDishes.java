@@ -1,8 +1,6 @@
 package com.groupe5.goodfood.use_case;
 
 import com.groupe5.goodfood.model.Dish;
-import com.groupe5.goodfood.use_case.order.DishRepository;
-import com.groupe5.goodfood.use_case.order.OrderRepository;
 
 import java.util.*;
 

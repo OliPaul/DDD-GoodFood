@@ -1,4 +1,4 @@
-package com.groupe5.goodfood.use_case.order;
+package com.groupe5.goodfood.use_case;
 
 public class InsufficientFundsException extends Exception{
 
