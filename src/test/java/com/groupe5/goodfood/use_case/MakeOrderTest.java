@@ -34,6 +34,25 @@ public class MakeOrderTest {
     }
 
 
+   @Test
+    void order_dish_find_by_id() {
+       List<String> dishToOrder = new ArrayList<>();
+       dishToOrder.add("1");
+       dishToOrder.add("2");
+       dishToOrder.add("3");
+       Dish expectedDish1 = dishes.findById(dishToOrder.get(0));
+       assertThat(expectedDish1).isInstanceOf(Dish.class);
+
+       Dish expectedDish2 = dishes.findById(dishToOrder.get(1));
+       assertThat(expectedDish2).isInstanceOf(Dish.class);
+
+       Dish expectedDish3 = dishes.findById(dishToOrder.get(2));
+       assertThat(expectedDish3).isInstanceOf(Dish.class);
+
+
+
+   }
+
 
 
 }
