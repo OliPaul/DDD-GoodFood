@@ -17,8 +17,8 @@ public class FakeOrders implements OrderRepository {
         orders = new HashMap<>();
 
         Order order1 = new Order();
-        Dish couscous_1 = new Dish("1", "Couscous", 15.0);
-        Dish salade_1 = new Dish("5", "Salade", 3);
+        Dish couscous_1 = new Dish("1", "Couscous", 15.0, 1);
+        Dish salade_1 = new Dish("5", "Salade", 3, 1);
         List<Dish> dishes_1  = new ArrayList<>();
         dishes_1.add(couscous_1);
         dishes_1.add(salade_1);
@@ -30,7 +30,7 @@ public class FakeOrders implements OrderRepository {
 
         Order order2 = new Order();
         List<Dish> dishes_2  = new ArrayList<>();
-        Dish gratinDauphinois = new Dish("2", "Gratin Dauphinois", 10);
+        Dish gratinDauphinois = new Dish("2", "Gratin Dauphinois", 10, 1);
         order2.setId("2");
         dishes_2.add(gratinDauphinois);
         order2.setDishes(dishes_2);
@@ -40,7 +40,7 @@ public class FakeOrders implements OrderRepository {
 
         Order order3 = new Order();
         List<Dish> dishes_3  = new ArrayList<>();
-        Dish sushi = new Dish("3", "Sushi", 9.0);
+        Dish sushi = new Dish("3", "Sushi", 9.0, 1);
         order1.setId("3");
         dishes_3.add(sushi);
         order1.setDishes(dishes_3);
@@ -50,7 +50,7 @@ public class FakeOrders implements OrderRepository {
 
         Order order4 = new Order();
         List<Dish> dishes_4  = new ArrayList<>();
-        Dish couscous_2 = new Dish("4", "Couscous", 15.0);
+        Dish couscous_2 = new Dish("4", "Couscous", 15.0, 1);
         order1.setId("4");
         dishes_4.add(couscous_2);
         order1.setDishes(dishes_4);
