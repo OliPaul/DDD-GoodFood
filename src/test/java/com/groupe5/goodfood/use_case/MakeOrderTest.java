@@ -33,27 +33,7 @@ public class MakeOrderTest {
 
     }
 
-   @Test
-    void order_dish_find_by_id() {
-       List<Dish> dishToOrder = new ArrayList<>();
-       Dish dish1 = new Dish("1", "couscous", 50.0);
-       Dish dish2 = new Dish("2", "salade", 15.0);
-       Dish dish3 = new Dish("3", "sushis", 25.0);
-       dishToOrder.add(dish1);
-       dishToOrder.add(dish2);
-       dishToOrder.add(dish3);
-       Dish expectedDish1 = dishes.findById("1");
-       assertEquals(expectedDish1.getId(), dish1.getId());
 
-       Dish expectedDish2 = dishes.findById("2");
-       assertEquals(expectedDish2.getId(), dish2.getId());
-
-       Dish expectedDish3 = dishes.findById("3");
-       assertEquals(expectedDish3.getId(), dish3.getId());
-
-
-
-   }
 
 
 }
