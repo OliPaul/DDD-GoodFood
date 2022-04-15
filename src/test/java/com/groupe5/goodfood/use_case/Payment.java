@@ -34,14 +34,14 @@ public class Payment {
     void validate_payment_if_credit_card_balance_is_greater_than_order_price() {
         CreditCard creditCard = paymentRepository.getCreditCard();
         Order order = orderRepository.findById("1");
-        assertThat(paymentRepository.validatePayment(order, creditCard)).isTrue();
+        assertThat(creditCard.validatePayment(order)).isTrue();
     }
 
     @Test
     void update_balance_should_return_a_credit_card_with_balance_reduced_of_order_amount() {
         CreditCard creditCard = paymentRepository.getCreditCard();
         Order order = orderRepository.findById("1");
-        if (paymentRepository.validatePayment(order, creditCard)) {
+        if (creditCard.validatePayment(order)) {
             creditCard.updateBalance(order.getPrice());
         }
 

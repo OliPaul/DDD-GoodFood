@@ -7,7 +7,9 @@ import com.groupe5.goodfood.use_case.payment.PaymentRepository;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDish {
 
@@ -23,28 +25,33 @@ public class OrderDish {
         this.payments = payments;
     }
 
-    public Order orderDish(List<Dish> selectedDishes, String orderId) throws InvalidCreditCardException, InsufficientFundsException {
-        List<Dish> toBeOrderedDishes = new ArrayList<>();
-        for(Dish dish:  selectedDishes){
-            Dish  dishTobeOrdered = dishes.findById(dish.getId());
-            toBeOrderedDishes.add(dishTobeOrdered);
-        }
+    public Order orderDish(HashMap<String, Integer> selectedDishes) throws InvalidCreditCardException, InsufficientFundsException {
+
+
+
 
         double sum = 0;
+        for(Map.Entry<String, String> entry: selectedDishes.entrySet()){
+
+            Dish dish = dishes.findById()
+
+
+        }
+
         for (Dish dish : toBeOrderedDishes){
             sum += dish.getPrice();
         }
-
+        Order order = getOrder(orderId, sum, toBeOrderedDishes);
         CreditCard card = payments.getCreditCard();
         if(!card.validCreditCard()){
             throw  new InvalidCreditCardException("Invalid Credit card ");
         }
-        if(card.getBalance() < sum){
+        if(card.validatePayment()){
             throw new InsufficientFundsException("Card balance insufficient");
         }
+        card.updateBalance(sum);
 
 
-        Order order = getOrder(orderId, sum, toBeOrderedDishes);
         orders.save(order);
         return order;
 
@@ -59,5 +66,7 @@ public class OrderDish {
 
         return order;
     }
+
+
 
 }

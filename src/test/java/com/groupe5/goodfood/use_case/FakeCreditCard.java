@@ -32,8 +32,5 @@ public class FakeCreditCard implements PaymentRepository {
         return creditCard;
     }
 
-    @Override
-    public boolean validatePayment(Order order, CreditCard creditCard) {
-        return creditCard.getBalance() - order.getPrice() >= 0;
-    }
+
 }
