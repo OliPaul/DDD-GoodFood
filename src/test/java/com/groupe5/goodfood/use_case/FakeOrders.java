@@ -26,6 +26,7 @@ public class FakeOrders implements OrderRepository {
         order1.setDishes(dishes_1);
         order1.setPrice(17.0);
 
+
         orders.put("1", order1);
 
         Order order2 = new Order();
