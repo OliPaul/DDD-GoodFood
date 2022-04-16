@@ -30,7 +30,7 @@ public class OrderDishTest {
     }
 
     @Test
-    void order_dish_that_not_exist_should_throw_dish_not_found_exception () {
+    void order_dish_that_not_exist_should_throw_dish_not_found_exception() {
         HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
             put("10", 2);
             put("1", 1);
@@ -50,7 +50,7 @@ public class OrderDishTest {
     }
 
     @Test
-    void order_dish_with_quantity_greater_dish_stock_should_throw_empty_stock_exception () {
+    void order_dish_with_quantity_greater_dish_stock_should_throw_empty_stock_exception() {
         HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
             put("2", 100);
             put("1", 1);
@@ -70,7 +70,7 @@ public class OrderDishTest {
     }
 
     @Test
-    void order_dish_with_expired_credit_card_should_throw_invalid_credit_card_exception () {
+    void order_dish_with_expired_credit_card_should_throw_invalid_credit_card_exception() {
         HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
             put("2", 1);
             put("1", 1);
@@ -90,7 +90,7 @@ public class OrderDishTest {
     }
 
     @Test
-    void order_dish_with_insufficient_balance_should_throw_invalid_credit_card_exception () {
+    void order_dish_with_insufficient_balance_should_throw_invalid_credit_card_exception() {
         HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
             put("4", 20);
             put("1", 10);
@@ -140,6 +140,19 @@ public class OrderDishTest {
 
         orderDish(dishesToOrder, dishList, creditCard);
         assertThat(creditCard.getBalance()).isEqualTo(35.0);
+
+    }
+
+    @Test
+    void order_dishes_should_return_an_order() throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
+        HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
+            put("2", 1);
+            put("1", 1);
+        }};
+        CreditCard creditCard = payments.getCreditCard();
+        List<Dish> dishList = dishes.getAll();
+
+        assertThat(orderDish(dishesToOrder, dishList, creditCard)).isInstanceOf(Order.class);
 
     }
 
