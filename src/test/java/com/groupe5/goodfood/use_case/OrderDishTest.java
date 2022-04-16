@@ -9,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -104,6 +106,26 @@ public class OrderDishTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    @Test
+    void order_dishes_should_update_dishes_stock() throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
+        HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
+            put("2", 1);
+            put("1", 1);
+        }};
+        CreditCard creditCard = payments.getCreditCard();
+        List<Dish> dishList = dishes.getAll();
+
+        orderDish(dishesToOrder, dishList, creditCard);
+        Optional<Dish> optionalDish1 = dishes.findById("1");
+        Dish dish1 = optionalDish1.get();
+        assertThat(dish1.getQuantity()).isEqualTo(9);
+
+        Optional<Dish> optionalDish2 = dishes.findById("2");
+        Dish dish2 = optionalDish2.get();
+        assertThat(dish2.getQuantity()).isEqualTo(4);
 
     }
 
