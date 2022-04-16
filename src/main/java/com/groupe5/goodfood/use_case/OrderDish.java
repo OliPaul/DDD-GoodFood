@@ -24,22 +24,8 @@ public class OrderDish {
 
     public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard card) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
         Order order = new Order();
-        double totalAmount = 0;
-        List<OrderedDish> orderedDishList = new ArrayList<>();
-
-        for (Map.Entry<String, Integer> entry : selectedDishes.entrySet()) {
-            Dish dish = getDish(entry);
-            if (dish == null)
-                throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
-
-            if (verifyStock(entry, dish))
-                throw new EmptyStockException(dish.getName() + " is out of stock.");
-
-            // Create ordered dish object
-            OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());
-            orderedDishList.add(orderDish);
-        }
-        //ajouter les plat à la commande
+        List<OrderedDish> orderedDishList = getDishesToOrder(selectedDishes);
+        //ajouter les plats à la commande
         order.appendDishesToOrder(orderedDishList);
         // calculer le total de la commande
         order.calculateTotalPrice();
@@ -55,8 +41,8 @@ public class OrderDish {
         // mise à jour du stock
         for (int i = 0; i < dishList.size(); i++) {
             Dish dish = dishList.get(i);
-            for (OrderedDish orderedDish : orderedDishList){
-                if(dish.getId().equals(orderedDish.getId())) {
+            for (OrderedDish orderedDish : orderedDishList) {
+                if (dish.getId().equals(orderedDish.getId())) {
                     dish.updateStock(order.getDishes().get(i));
                 }
             }
@@ -67,6 +53,23 @@ public class OrderDish {
         card.updateBalance(order.getPrice());
         return order;
 
+    }
+
+    private List<OrderedDish> getDishesToOrder(HashMap<String, Integer> selectedDishes) throws DishNotFoundException, EmptyStockException {
+        List<OrderedDish> orderedDishList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : selectedDishes.entrySet()) {
+            Dish dish = getDish(entry);
+            if (dish == null)
+                throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
+
+            if (verifyStock(entry, dish))
+                throw new EmptyStockException(dish.getName() + " is out of stock.");
+
+            // Create ordered dish object
+            OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());
+            orderedDishList.add(orderDish);
+        }
+        return orderedDishList;
     }
 
     private boolean verifyStock(Map.Entry<String, Integer> entry, Dish dish) {
