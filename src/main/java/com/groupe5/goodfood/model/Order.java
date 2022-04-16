@@ -41,6 +41,18 @@ public class Order {
         price = totalAmount;
     }
 
+    public void updateDishesQuantity(List<Dish> dishList, Order order) {
+        // mise à jour du stock
+        for (int i = 0; i < dishList.size(); i++) {
+            Dish dish = dishList.get(i);
+            for (OrderedDish orderedDish : dishes) {
+                if (dish.getId().equals(orderedDish.getId())) {
+                    dish.updateStock(order.getDishes().get(i));
+                }
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

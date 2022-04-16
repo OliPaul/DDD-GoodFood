@@ -31,25 +31,14 @@ public class OrderDish {
         order.calculateTotalPrice();
 
         creditCard.pay(order);
-        updateDishesStock(dishList, order, orderedDishList);
         // Enregistrer la commande
         orders.save(order);
+        // Mettre à jour le stock des plats commandés
+        order.updateDishesQuantity(dishList, order);
         //mise à jour de la balance
         creditCard.updateBalance(order.getPrice());
         return order;
 
-    }
-
-    private void updateDishesStock(List<Dish> dishList, Order order, List<OrderedDish> orderedDishList) {
-        // mise à jour du stock
-        for (int i = 0; i < dishList.size(); i++) {
-            Dish dish = dishList.get(i);
-            for (OrderedDish orderedDish : orderedDishList) {
-                if (dish.getId().equals(orderedDish.getId())) {
-                    dish.updateStock(order.getDishes().get(i));
-                }
-            }
-        }
     }
 
     private List<OrderedDish> getDishesToOrder(HashMap<String, Integer> selectedDishes) throws DishNotFoundException, EmptyStockException {
