@@ -22,7 +22,7 @@ public class OrderDish {
         this.payments = payments;
     }
 
-    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard card) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
+    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard creditCard) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
         Order order = new Order();
         List<OrderedDish> orderedDishList = getDishesToOrder(selectedDishes);
         //ajouter les plats à la commande
@@ -30,25 +30,14 @@ public class OrderDish {
         // calculer le total de la commande
         order.calculateTotalPrice();
 
-        payOrder(card, order);
+        creditCard.pay(order);
         updateDishesStock(dishList, order, orderedDishList);
         // Enregistrer la commande
         orders.save(order);
         //mise à jour de la balance
-        card.updateBalance(order.getPrice());
+        creditCard.updateBalance(order.getPrice());
         return order;
 
-    }
-
-    private void payOrder(CreditCard card, Order order) throws InvalidCreditCardException, InsufficientFundsException {
-        // Vérifier la validité de la carte de crédit
-        if (!card.validCreditCard()) {
-            throw new InvalidCreditCardException("Invalid Credit card");
-        }
-        // Valider le paiement
-        if (!card.validatePayment(order)) {
-            throw new InsufficientFundsException("Card balance insufficient");
-        }
     }
 
     private void updateDishesStock(List<Dish> dishList, Order order, List<OrderedDish> orderedDishList) {

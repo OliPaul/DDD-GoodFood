@@ -1,5 +1,7 @@
 package com.groupe5.goodfood.model;
 
+import com.groupe5.goodfood.use_case.InsufficientFundsException;
+import com.groupe5.goodfood.use_case.InvalidCreditCardException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -33,5 +35,16 @@ public class CreditCard {
 
     public boolean validatePayment(Order order) {
         return balance - order.getPrice() >= 0;
+    }
+
+    public void pay(Order order) throws InvalidCreditCardException, InsufficientFundsException {
+        // Vérifier la validité de la carte de crédit
+        if (!validCreditCard()) {
+            throw new InvalidCreditCardException("Invalid Credit card");
+        }
+        // Valider le paiement
+        if (!validatePayment(order)) {
+            throw new InsufficientFundsException("Card balance insufficient");
+        }
     }
 }
