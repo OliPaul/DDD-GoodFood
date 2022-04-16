@@ -29,5 +29,21 @@ public class FakeCreditCard implements PaymentRepository {
         return creditCard;
     }
 
+    @Override
+    public CreditCard getExpiredCreditCard() {
+
+        return CreditCard
+                .builder()
+                .cardNumber("4544-8297-3531-2678")
+                .holderName("A user")
+                .expirationDate(LocalDate.parse("08/2020", new DateTimeFormatterBuilder()
+                        .appendPattern("MM/yyyy")
+                        .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+                        .toFormatter()))
+                .verificationCode(100)
+                .balance(100)
+                .build();
+    }
+
 
 }
