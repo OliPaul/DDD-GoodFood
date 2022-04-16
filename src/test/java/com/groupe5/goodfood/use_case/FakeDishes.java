@@ -40,4 +40,16 @@ public class FakeDishes implements DishRepository {
         return dishList;
     }
 
+    @Override
+    public Dish getDish(Map.Entry<String, Integer> entry) {
+        //Récuperer le plat par son id
+        Optional<Dish> optionalDish = findById(entry.getKey());
+        //si le plat n'existe pas on notifie l'utilisateur
+        if (optionalDish.isEmpty()) {
+            // notify user
+            return null;
+        }
+        return optionalDish.get();
+    }
+
 }

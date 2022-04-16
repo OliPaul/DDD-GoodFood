@@ -44,7 +44,7 @@ public class OrderDish {
     private List<OrderedDish> getDishesToOrder(HashMap<String, Integer> selectedDishes) throws DishNotFoundException, EmptyStockException {
         List<OrderedDish> orderedDishList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : selectedDishes.entrySet()) {
-            Dish dish = getDish(entry);
+            Dish dish = dishes.getDish(entry);
             if (dish == null)
                 throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
 
@@ -63,17 +63,5 @@ public class OrderDish {
         // notify user stock pas dispo
         return dish.getQuantity() < entry.getValue();
     }
-
-    private Dish getDish(Map.Entry<String, Integer> entry) {
-        //Récuperer le plat par son id
-        Optional<Dish> optionalDish = dishes.findById(entry.getKey());
-        //si le plat n'existe pas on notifie l'utilisateur
-        if (optionalDish.isEmpty()) {
-            // notify user
-            return null;
-        }
-        return optionalDish.get();
-    }
-
 
 }
