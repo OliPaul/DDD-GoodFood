@@ -34,7 +34,7 @@ public class OrderDish {
                 throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
 
             if (verifyStock(entry, dish))
-                throw new EmptyStockException(dish.getName() + "is out of stock.");
+                throw new EmptyStockException(dish.getName() + " is out of stock.");
 
             // Create ordered dish object
             OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());

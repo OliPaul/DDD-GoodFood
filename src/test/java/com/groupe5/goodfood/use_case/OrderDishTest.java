@@ -45,6 +45,25 @@ public class OrderDishTest {
 
     }
 
+    @Test
+    void order_dish_with_quantity_greater_dish_stock_should_throw_empty_stock_exception () {
+        HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
+            put("2", 100);
+            put("1", 1);
+        }};
+        List<Dish> dishList = dishes.getAll();
+
+        Exception exception = assertThrows(EmptyStockException.class, () -> {
+            orderDish(dishesToOrder, dishList);
+        });
+
+        String expectedMessage = "salade is out of stock.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
     private Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList) throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
         OrderDish order = new OrderDish(orders, dishes, payments);
         return order.orderDish(selectedDishes, dishList);
