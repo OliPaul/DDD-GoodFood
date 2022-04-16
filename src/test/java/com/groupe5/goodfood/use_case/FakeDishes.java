@@ -52,4 +52,11 @@ public class FakeDishes implements DishRepository {
         return optionalDish.get();
     }
 
+    public boolean verifyStock(Map.Entry<String, Integer> entry) {
+        //Vérification de stock
+        // notify user stock pas dispo
+        Dish dish = getDish(entry);
+        return dish.getQuantity() < entry.getValue();
+    }
+
 }

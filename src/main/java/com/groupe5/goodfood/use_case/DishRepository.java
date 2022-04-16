@@ -10,4 +10,5 @@ public interface DishRepository {
     Optional<Dish> findById(String dishId);
     List<Dish> getAll();
     Dish getDish(Map.Entry<String, Integer> entry);
+    boolean verifyStock(Map.Entry<String, Integer> entry);
 }

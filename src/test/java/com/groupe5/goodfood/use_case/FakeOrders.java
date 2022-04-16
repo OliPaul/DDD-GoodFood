@@ -1,5 +1,6 @@
 package com.groupe5.goodfood.use_case;
 
+import com.groupe5.goodfood.model.Dish;
 import com.groupe5.goodfood.model.Order;
 import com.groupe5.goodfood.model.OrderedDish;
 
@@ -69,5 +70,23 @@ public class FakeOrders implements OrderRepository {
     @Override
     public void save(Order order) {
 
+    }
+
+    @Override
+    public List<OrderedDish> getDishesToOrder(HashMap<String, Integer> selectedDishes, DishRepository dishes) throws DishNotFoundException, EmptyStockException {
+        List<OrderedDish> orderedDishList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : selectedDishes.entrySet()) {
+            Dish dish = dishes.getDish(entry);
+            if (dish == null)
+                throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
+
+            if (dishes.verifyStock(entry))
+                throw new EmptyStockException(dish.getName() + " is out of stock.");
+
+            // Create ordered dish object
+            OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());
+            orderedDishList.add(orderDish);
+        }
+        return orderedDishList;
     }
 }
