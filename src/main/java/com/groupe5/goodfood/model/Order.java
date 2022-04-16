@@ -1,12 +1,12 @@
 package com.groupe5.goodfood.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
 
     private String id;
-    private List<OrderedDish> dishes = new ArrayList<>();
+    private List<OrderedDish> dishes;
     private double price;
 
 
@@ -14,16 +14,12 @@ public class Order {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public List<OrderedDish> getDishes() {
         return this.dishes;
     }
 
-    public void setDishes(List<Dish> dish) {
-        this.dishes = dishes;
+    public void setDishes(List<OrderedDish> orderedDishes) {
+        dishes = orderedDishes;
     }
 
 
@@ -32,8 +28,8 @@ public class Order {
     }
 
 
-    public void appendDishToOrder(OrderedDish orderedDish) {
-        dishes.add(orderedDish);
+    public void appendDishesToOrder(List<OrderedDish> orderedDishes) {
+        dishes = orderedDishes;
     }
 
     public void calculateTotalPrice() {
@@ -43,5 +39,18 @@ public class Order {
         }
 
         price = totalAmount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Double.compare(order.price, price) == 0 && Objects.equals(id, order.id) && dishes.equals(order.dishes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dishes, price);
     }
 }
