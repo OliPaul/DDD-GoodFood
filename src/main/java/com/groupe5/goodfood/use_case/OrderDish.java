@@ -22,7 +22,7 @@ public class OrderDish {
         this.payments = payments;
     }
 
-    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException {
+    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
         CreditCard card = payments.getCreditCard();
         Order order = new Order();
         double totalAmount = 0;
@@ -34,7 +34,7 @@ public class OrderDish {
                 throw new DishNotFoundException("The dish " + entry.getKey() + " doesn't exist.");
 
             if (verifyStock(entry, dish))
-                break;
+                throw new EmptyStockException(dish.getName() + "is out of stock.");
 
             // Create ordered dish object
             OrderedDish orderDish = new OrderedDish(dish.getId(), dish.getName(), entry.getValue(), dish.getPrice());
