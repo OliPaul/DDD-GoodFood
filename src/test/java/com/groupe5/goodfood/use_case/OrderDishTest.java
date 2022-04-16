@@ -129,6 +129,20 @@ public class OrderDishTest {
 
     }
 
+    @Test
+    void order_dishes_should_update_credit_card_balance() throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
+        HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
+            put("2", 1);
+            put("1", 1);
+        }};
+        CreditCard creditCard = payments.getCreditCard();
+        List<Dish> dishList = dishes.getAll();
+
+        orderDish(dishesToOrder, dishList, creditCard);
+        assertThat(creditCard.getBalance()).isEqualTo(35.0);
+
+    }
+
     private Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard card) throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
         OrderDish order = new OrderDish(orders, dishes, payments);
         return order.orderDish(selectedDishes, dishList, card);
