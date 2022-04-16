@@ -87,6 +87,26 @@ public class OrderDishTest {
 
     }
 
+    @Test
+    void order_dish_with_insufficient_balance_should_throw_invalid_credit_card_exception () {
+        HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
+            put("4", 20);
+            put("1", 10);
+        }};
+        CreditCard creditCard = payments.getCreditCard();
+        List<Dish> dishList = dishes.getAll();
+
+        Exception exception = assertThrows(InsufficientFundsException.class, () -> {
+            orderDish(dishesToOrder, dishList, creditCard);
+        });
+
+        String expectedMessage = "Card balance insufficient";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
     private Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard card) throws InvalidCreditCardException, InsufficientFundsException, EmptyStockException, DishNotFoundException {
         OrderDish order = new OrderDish(orders, dishes, payments);
         return order.orderDish(selectedDishes, dishList, card);
