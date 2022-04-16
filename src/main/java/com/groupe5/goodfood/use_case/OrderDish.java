@@ -38,6 +38,16 @@ public class OrderDish {
         if (!card.validatePayment(order)) {
             throw new InsufficientFundsException("Card balance insufficient");
         }
+        updateDishesStock(dishList, order, orderedDishList);
+        // Enregistrer la commande
+        orders.save(order);
+        //mise à jour de la balance
+        card.updateBalance(order.getPrice());
+        return order;
+
+    }
+
+    private void updateDishesStock(List<Dish> dishList, Order order, List<OrderedDish> orderedDishList) {
         // mise à jour du stock
         for (int i = 0; i < dishList.size(); i++) {
             Dish dish = dishList.get(i);
@@ -47,12 +57,6 @@ public class OrderDish {
                 }
             }
         }
-        // Enregistrer la commande
-        orders.save(order);
-        //mise à jour de la balance
-        card.updateBalance(order.getPrice());
-        return order;
-
     }
 
     private List<OrderedDish> getDishesToOrder(HashMap<String, Integer> selectedDishes) throws DishNotFoundException, EmptyStockException {
