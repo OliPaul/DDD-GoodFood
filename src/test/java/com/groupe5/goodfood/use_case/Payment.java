@@ -43,7 +43,7 @@ public class Payment {
             creditCard.updateBalance(order.getPrice());
         }
 
-        assertThat(creditCard.getBalance() == 83.0).isTrue();
+        assertThat(creditCard.getBalance() == 82.0).isTrue();
     }
 
 }

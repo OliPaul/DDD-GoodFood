@@ -54,11 +54,13 @@ public class MakeOrderTest {
     @Test
     void calculate_total_price_should_return_sum_of_ordered_dishes() {
         Order order = new Order();
+        List<OrderedDish> orderedDishes = new ArrayList<>();
         OrderedDish sushi = new OrderedDish("1", "Sushi", 1, 5);
         OrderedDish gratinDauphinois = new OrderedDish("2", "Gratin Dauphinois", 1, 10);
+        orderedDishes.add(sushi);
+        orderedDishes.add(gratinDauphinois);
 
-        order.appendDishToOrder(sushi);
-        order.appendDishToOrder(gratinDauphinois);
+        order.appendDishesToOrder(orderedDishes);
 
         order.calculateTotalPrice();
         assertEquals(15, order.getPrice());
@@ -69,14 +71,16 @@ public class MakeOrderTest {
     void update_stock_should_return_a_stock_with_quantity_reduced(){
 
         Order order = new Order();
+        List<OrderedDish> orderedDishes = new ArrayList<>();
         Dish sushiDish = new Dish("1", "Sushi", 1, 5);
         Dish gratinDauphinoisDish = new Dish("2", "Gratin Dauphinois", 10, 10);
 
         OrderedDish sushi = new OrderedDish("1", "Sushi", 1, 5);
         OrderedDish gratinDauphinois = new OrderedDish("2", "Gratin Dauphinois", 3, 10);
+        orderedDishes.add(sushi);
+        orderedDishes.add(gratinDauphinois);
 
-        order.appendDishToOrder(sushi);
-        order.appendDishToOrder(gratinDauphinois);
+        order.appendDishesToOrder(orderedDishes);
         sushiDish.updateStock(sushi);
         assertEquals(4 , sushiDish.getQuantity());
         gratinDauphinoisDish.updateStock(gratinDauphinois);
