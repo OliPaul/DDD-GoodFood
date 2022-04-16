@@ -27,7 +27,7 @@ public class OrderDishTest {
     }
 
     @Test
-    void order_dish_that_not_exist_should_throw_exception () {
+    void order_dish_that_not_exist_should_throw_dish_not_found_exception () {
         HashMap<String, Integer> dishesToOrder = new HashMap<>() {{
             put("10", 2);
             put("1", 1);
