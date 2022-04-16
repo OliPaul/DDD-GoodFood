@@ -49,7 +49,7 @@ public class OrderDish {
             throw new InvalidCreditCardException("Invalid Credit card");
         }
         // Valider le paiement
-        if (card.validatePayment(order)) {
+        if (!card.validatePayment(order)) {
             throw new InsufficientFundsException("Card balance insufficient");
         }
         // mise à jour du stock
