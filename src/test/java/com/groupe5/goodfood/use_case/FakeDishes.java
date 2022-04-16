@@ -35,4 +35,9 @@ public class FakeDishes implements DishRepository {
         return Optional.ofNullable(dishes.get(dishId));
     }
 
+    @Override
+    public List<Dish> getAll() {
+        return dishList;
+    }
+
 }
