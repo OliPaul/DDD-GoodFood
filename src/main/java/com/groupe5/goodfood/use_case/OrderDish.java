@@ -64,7 +64,7 @@ public class OrderDish {
         // Enregistrer la commande
         orders.save(order);
         //mise à jour de la balance
-        card.updateBalance(totalAmount);
+        card.updateBalance(order.getPrice());
         return order;
 
     }
