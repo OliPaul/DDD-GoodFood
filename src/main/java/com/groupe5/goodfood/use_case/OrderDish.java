@@ -22,8 +22,7 @@ public class OrderDish {
         this.payments = payments;
     }
 
-    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
-        CreditCard card = payments.getCreditCard();
+    public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard card) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
         Order order = new Order();
         double totalAmount = 0;
         List<OrderedDish> orderedDishList = new ArrayList<>();
@@ -47,7 +46,7 @@ public class OrderDish {
 
         // Vérifier la validité de la carte de crédit
         if (!card.validCreditCard()) {
-            throw new InvalidCreditCardException("Invalid Credit card ");
+            throw new InvalidCreditCardException("Invalid Credit card");
         }
         // Valider le paiement
         if (card.validatePayment(order)) {
