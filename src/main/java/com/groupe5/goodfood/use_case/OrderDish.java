@@ -1,9 +1,6 @@
 package com.groupe5.goodfood.use_case;
 
-import com.groupe5.goodfood.model.CreditCard;
-import com.groupe5.goodfood.model.Dish;
-import com.groupe5.goodfood.model.Order;
-import com.groupe5.goodfood.model.OrderedDish;
+import com.groupe5.goodfood.model.*;
 
 
 import java.util.*;
@@ -23,16 +20,9 @@ public class OrderDish {
     }
 
     public Order orderDish(HashMap<String, Integer> selectedDishes, List<Dish> dishList, CreditCard creditCard) throws InvalidCreditCardException, InsufficientFundsException, DishNotFoundException, EmptyStockException {
-        Order order = new Order();
         List<OrderedDish> orderedDishList = orders.getDishesToOrder(selectedDishes, dishes);
-        //ajouter les plats à la commande
-        order.appendDishesToOrder(orderedDishList);
-        // calculer le total de la commande
-        order.calculateTotalPrice();
-
-        creditCard.pay(order);
-        // Enregistrer la commande
-        orders.save(order);
+        // Passer la commande (Domain service)
+        Order order = new OrderRegister().proceedOrder(orderedDishList, creditCard, orders);
         // Mettre à jour le stock des plats commandés
         order.updateDishesQuantity(dishList, order);
         //mise à jour de la balance
